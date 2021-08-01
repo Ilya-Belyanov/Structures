@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.5)
 
 project(Structure LANGUAGES CXX)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -24,7 +20,6 @@ include_directories(${SOURCE_DIR})
 file(GLOB SOURCE_FILES
         "${SOURCE_DIR}/*.cpp"
         "${SOURCE_DIR}/*.h"
-        "${SOURCE_DIR}/*.ui"
         )
 
 add_subdirectory(${STR_DIR})
@@ -36,7 +31,3 @@ target_link_libraries(${PROJECT_NAME}
         libstc
         )
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        ${PROJECT_SOURCE_DIR}
-        ${STR_DIR})

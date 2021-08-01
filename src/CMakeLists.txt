@@ -4,18 +4,13 @@ project(Str-lib LANGUAGES CXX)
 
 set(NODE_DIR "${PROJECT_SOURCE_DIR}/node")
 
-file(GLOB STR_SOURCE_FILES
-        "${NODE_DIR}/*.cpp"
-        "${PROJECT_SOURCE_DIR}/*.cpp"
-        )
-
 file(GLOB STR_HEADERS_FILES
         "${NODE_DIR}/*.h"
         "${PROJECT_SOURCE_DIR}/*.h"
         )
 
 
-add_library(libstc ${STR_SOURCE_FILES} ${STR_HEADERS_FILES})
+add_library(libstc SHARED ${STR_HEADERS_FILES})
 
 target_include_directories(libstc
     PUBLIC
