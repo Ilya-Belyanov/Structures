@@ -14,6 +14,7 @@ endif()
 
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR})
 set(STR_DIR "${PROJECT_SOURCE_DIR}/src")
+set(TESTS_DIR "${PROJECT_SOURCE_DIR}/tests")
 
 include_directories(${SOURCE_DIR})
 
@@ -23,11 +24,12 @@ file(GLOB SOURCE_FILES
         )
 
 add_subdirectory(${STR_DIR})
+add_subdirectory(${TESTS_DIR})
 
 add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        libstc
+        str
         )
 

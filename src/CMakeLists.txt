@@ -1,18 +1,19 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Str-lib LANGUAGES CXX)
+project(str)
 
 set(NODE_DIR "${PROJECT_SOURCE_DIR}/node")
 
 file(GLOB STR_HEADERS_FILES
-        "${NODE_DIR}/*.h"
-        "${PROJECT_SOURCE_DIR}/*.h"
+        "${NODE_DIR}/*.hpp"
+        "${PROJECT_SOURCE_DIR}/*.hpp"
         )
 
+add_library(${PROJECT_NAME} SHARED ${STR_HEADERS_FILES})
 
-add_library(libstc SHARED ${STR_HEADERS_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
-target_include_directories(libstc
+target_include_directories(${PROJECT_NAME}
     PUBLIC
         ${PROJECT_SOURCE_DIR}
         ${NODE_DIR})

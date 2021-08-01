@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "node.h"
-#include "queue.h"
+#include "node.hpp"
+#include "queue.hpp"
 
 using namespace std;
 
