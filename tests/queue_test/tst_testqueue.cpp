@@ -16,10 +16,6 @@ class TestQueue : public QObject
     Queue<char> c_queue;
     QVector<char> c_case;
 
-    Queue<float> d2_queue;
-    Queue<float> d3_queue;
-    Queue<float> d4_queue;
-
 public:
     TestQueue();
     ~TestQueue();
@@ -29,8 +25,9 @@ private slots:
     void cleanupTestCase();
     void testCasePushItem();
     void testCaseFrontBackItem();
+    void testCaseFlip();
     void testCasePopItem();
-    void testCaseOperatorPlus();
+    void testCaseOperatorPlusEqual();
 };
 
 TestQueue::TestQueue()
@@ -71,6 +68,14 @@ void TestQueue::testCaseFrontBackItem()
     QCOMPARE(c_queue.back(), c_case.last());
 }
 
+void TestQueue::testCaseFlip()
+{
+    Queue<float> d2_queue = d_queue;
+    d2_queue.flip();
+    for(int i = d_case.size() - 1; i > 0; i--)
+        QCOMPARE(d2_queue.pop(), d_case[i]);
+}
+
 void TestQueue::testCasePopItem()
 {
     foreach(float d, d_case)
@@ -83,21 +88,22 @@ void TestQueue::testCasePopItem()
         QCOMPARE(c_queue.pop(), c);
 }
 
-void TestQueue::testCaseOperatorPlus()
+void TestQueue::testCaseOperatorPlusEqual()
 {
-    d2_queue.push(9.0);
-    d3_queue.push(1.0);
-    d4_queue = d2_queue + d3_queue;
-    QCOMPARE(d4_queue.pop(), d2_queue.pop());
-    QCOMPARE(d4_queue.pop(), d3_queue.pop());
+    d_queue.push(9.0);
+    d_queue.push(1.0);
+    d_queue = d_queue + d_queue;
+    QCOMPARE(d_queue.pop(), 9.0);
+    QCOMPARE(d_queue.pop(), 1.0);
+    QCOMPARE(d_queue.pop(), 9.0);
+    QCOMPARE(d_queue.pop(), 1.0);
 }
+
 
 void TestQueue::cleanupTestCase()
 {
+    d_queue.clear();
     QCOMPARE(d_queue.empty(), true);
-    QCOMPARE(d2_queue.empty(), true);
-    QCOMPARE(d3_queue.empty(), true);
-    QCOMPARE(d4_queue.empty(), true);
     QCOMPARE(i_queue.empty(), true);
     QCOMPARE(c_queue.empty(), true);
 }

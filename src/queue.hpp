@@ -1,5 +1,5 @@
-#ifndef QUEQU_H
-#define QUEQU_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include "node/node_dl.hpp"
 
@@ -12,6 +12,7 @@ class Queue
 
 public:
     Queue();
+    Queue(const Queue<T> &copy);
     ~Queue();
 
     void push(T data);
@@ -20,6 +21,8 @@ public:
     T back();
     bool empty();
     void clear();
+    uint32_t size() const;
+    void flip();
 
     Queue<T> operator+(const Queue<T> &q);
     Queue<T>& operator= (const Queue<T> &q);
@@ -35,6 +38,15 @@ Queue<T>::Queue() :
   , _size(0)
 {
 
+}
+
+template<typename T>
+Queue<T>::Queue(const Queue<T> &copy) :
+    _front(nullptr)
+  , _back(nullptr)
+  , _size(0)
+{
+    copyFromTo(copy, *this);
 }
 
 template<typename T>
@@ -100,6 +112,29 @@ template<typename T> void Queue<T>::clear()
         pop();
 }
 
+template<typename T> uint32_t Queue<T>::size() const
+{
+    return _size;
+}
+
+template<typename T> void Queue<T>::flip()
+{
+    if(empty())
+        return;
+    auto node = _front;
+    auto node_next = _front->_next;
+    node->_next = nullptr;
+    while(node_next)
+    {
+        auto tmp = node_next->_next;
+        node_next->_next = node;
+        node = node_next;
+        node_next = tmp;
+    }
+    _back = _front;
+    _front = node;
+}
+
 template<typename T> Queue<T> Queue<T>::operator+(const Queue<T> &q)
 {
     Queue<T> res;
@@ -129,4 +164,4 @@ template<typename T> void Queue<T>::copyFromTo(const Queue<T> &q, Queue<T> &res)
     }
 }
 
-#endif // QUEQU_H
+#endif // QUEUE_H
