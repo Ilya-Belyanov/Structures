@@ -15,5 +15,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        ${PROJECT_SOURCE_DIR}
-        ${NODE_DIR})
+        ${NODE_DIR}
+        ${PROJECT_SOURCE_DIR})
