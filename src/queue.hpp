@@ -19,6 +19,13 @@ public:
     T front();
     T back();
     bool empty();
+    void clear();
+
+    Queue<T> operator+(const Queue<T> &q);
+    Queue<T>& operator= (const Queue<T> &q);
+
+private:
+    void copyFromTo(const Queue<T> &q, Queue<T> &res);
 };
 
 template<typename T>
@@ -33,8 +40,7 @@ Queue<T>::Queue() :
 template<typename T>
 Queue<T>::~Queue()
 {
-    while(_front)
-        pop();
+    clear();
 }
 
 template<typename T> void Queue<T>::push(T data)
@@ -60,8 +66,8 @@ template<typename T> T Queue<T>::pop()
         T data = front();
         auto node = _front;
         _front = _front->_next;
-        _size--;
         delete node;
+        _size--;
         if(empty())
             _back = nullptr;
         return data;
@@ -87,4 +93,40 @@ template<typename T> bool Queue<T>::empty()
 {
     return _size == 0;
 }
+
+template<typename T> void Queue<T>::clear()
+{
+    while(_front)
+        pop();
+}
+
+template<typename T> Queue<T> Queue<T>::operator+(const Queue<T> &q)
+{
+    Queue<T> res;
+    copyFromTo(*this, res);
+    copyFromTo(q, res);
+    return res;
+}
+
+template<typename T> Queue<T>& Queue<T>::operator= (const Queue<T> &q)
+{
+    // Проверка на самоприсваивание
+    if (this != &q)
+    {
+        clear();
+        copyFromTo(q, *this);
+    }
+    return *this;
+}
+
+template<typename T> void Queue<T>::copyFromTo(const Queue<T> &q, Queue<T> &res)
+{
+    auto node = q._front;
+    while (node)
+    {
+        res.push(node->data());
+        node = node->_next;
+    }
+}
+
 #endif // QUEQU_H

@@ -16,6 +16,10 @@ class TestQueue : public QObject
     Queue<char> c_queue;
     QVector<char> c_case;
 
+    Queue<float> d2_queue;
+    Queue<float> d3_queue;
+    Queue<float> d4_queue;
+
 public:
     TestQueue();
     ~TestQueue();
@@ -26,6 +30,7 @@ private slots:
     void testCasePushItem();
     void testCaseFrontBackItem();
     void testCasePopItem();
+    void testCaseOperatorPlus();
 };
 
 TestQueue::TestQueue()
@@ -78,9 +83,21 @@ void TestQueue::testCasePopItem()
         QCOMPARE(c_queue.pop(), c);
 }
 
+void TestQueue::testCaseOperatorPlus()
+{
+    d2_queue.push(9.0);
+    d3_queue.push(1.0);
+    d4_queue = d2_queue + d3_queue;
+    QCOMPARE(d4_queue.pop(), d2_queue.pop());
+    QCOMPARE(d4_queue.pop(), d3_queue.pop());
+}
+
 void TestQueue::cleanupTestCase()
 {
     QCOMPARE(d_queue.empty(), true);
+    QCOMPARE(d2_queue.empty(), true);
+    QCOMPARE(d3_queue.empty(), true);
+    QCOMPARE(d4_queue.empty(), true);
     QCOMPARE(i_queue.empty(), true);
     QCOMPARE(c_queue.empty(), true);
 }
