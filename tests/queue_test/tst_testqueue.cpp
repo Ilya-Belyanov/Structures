@@ -23,6 +23,7 @@ public:
 private slots:
     void initTestCase();
     void cleanupTestCase();
+    void testCaseConstructors();
     void testCasePushItem();
     void testCaseFrontBackItem();
     void testCaseFlip();
@@ -42,6 +43,13 @@ void TestQueue::initTestCase()
     d_case = {9.0, 10.0, 13.0, 14.4, 15.6};
     i_case = {9, 10, 13, 14, 15};
     c_case = {'A', 'B', 'C', 'D', 'F'};
+}
+
+void TestQueue::testCaseConstructors()
+{
+    Queue<float> d2_queue(9.0, 10.0, 13.0, 14.4, 15.6);
+    foreach(float d, d_case)
+        QCOMPARE(d2_queue.pop(), d);
 }
 
 void TestQueue::testCasePushItem()
@@ -97,12 +105,22 @@ void TestQueue::testCaseOperatorPlusEqual()
     QCOMPARE(d_queue.pop(), 1.0);
     QCOMPARE(d_queue.pop(), 9.0);
     QCOMPARE(d_queue.pop(), 1.0);
+
+    d_queue.push(9.0);
+    d_queue.push(1.0);
+    d_queue += d_queue;
+    QCOMPARE(d_queue.pop(), 9.0);
+    QCOMPARE(d_queue.pop(), 1.0);
+    QCOMPARE(d_queue.pop(), 9.0);
+    QCOMPARE(d_queue.pop(), 1.0);
 }
 
 
 void TestQueue::cleanupTestCase()
 {
     d_queue.clear();
+    i_queue.clear();
+    c_queue.clear();
     QCOMPARE(d_queue.empty(), true);
     QCOMPARE(i_queue.empty(), true);
     QCOMPARE(c_queue.empty(), true);

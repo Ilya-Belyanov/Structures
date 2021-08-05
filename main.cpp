@@ -8,7 +8,8 @@ using namespace std;
 
 int main()
 {
-    Queue<int> q;
+    Queue<int> q(0, 1, 2, 3, 4, 5, 6);
+    q += q;
     q.push(0);
     q.push(1);
     q.push(2);

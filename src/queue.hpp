@@ -13,6 +13,17 @@ class Queue
 public:
     Queue();
     Queue(const Queue<T> &copy);
+
+    template<typename First, typename... Args>
+    Queue(First first, Args... args) : Queue()
+    {
+        push(first);
+        uint32_t l = sizeof... (Args);
+        T items [l] { args... };
+        for(uint32_t i = 0; i < l; i++)
+            push(items[i]);
+    }
+
     ~Queue();
 
     void push(T data);
@@ -25,6 +36,7 @@ public:
     void flip();
 
     Queue<T> operator+(const Queue<T> &q);
+    Queue<T> operator+=(const Queue<T> &qr);
     Queue<T>& operator= (const Queue<T> &q);
 
 private:
@@ -141,6 +153,14 @@ template<typename T> Queue<T> Queue<T>::operator+(const Queue<T> &q)
     copyFromTo(*this, res);
     copyFromTo(q, res);
     return res;
+}
+
+template<typename T> Queue<T> Queue<T>::operator+=(const Queue<T> &q)
+{
+    Queue<T> res;
+    copyFromTo(q, res);
+    copyFromTo(res, *this);
+    return *this;
 }
 
 template<typename T> Queue<T>& Queue<T>::operator= (const Queue<T> &q)
