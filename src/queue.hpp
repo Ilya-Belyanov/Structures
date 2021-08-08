@@ -8,7 +8,6 @@ class Queue
 {
     NodeDL<T> *_front;
     NodeDL<T> *_back;
-    uint32_t _size;
 
 public:
     Queue();
@@ -47,7 +46,6 @@ template<typename T>
 Queue<T>::Queue() :
     _front(nullptr)
   , _back(nullptr)
-  , _size(0)
 {
 
 }
@@ -56,7 +54,6 @@ template<typename T>
 Queue<T>::Queue(const Queue<T> &copy) :
     _front(nullptr)
   , _back(nullptr)
-  , _size(0)
 {
     copyFromTo(copy, *this);
 }
@@ -80,7 +77,6 @@ template<typename T> void Queue<T>::push(T data)
         _back = new NodeDL<T>(data);
         node->_next = _back;
     }
-    _size++;
 }
 
 template<typename T> T Queue<T>::pop()
@@ -91,7 +87,6 @@ template<typename T> T Queue<T>::pop()
         auto node = _front;
         _front = _front->_next;
         delete node;
-        _size--;
         if(empty())
             _back = nullptr;
         return data;
@@ -115,7 +110,7 @@ template<typename T> T Queue<T>::back()
 
 template<typename T> bool Queue<T>::empty()
 {
-    return _size == 0;
+    return size() == 0;
 }
 
 template<typename T> void Queue<T>::clear()
@@ -126,6 +121,13 @@ template<typename T> void Queue<T>::clear()
 
 template<typename T> uint32_t Queue<T>::size() const
 {
+    auto node = _front;
+    uint32_t _size = 0;
+    while (node)
+    {
+        _size++;
+        node = node->_next;
+    }
     return _size;
 }
 

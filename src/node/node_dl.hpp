@@ -7,7 +7,7 @@ template<typename T>
 struct NodeDL: public Node<T>
 {
     NodeDL *_next;
-    NodeDL(T data, NodeDL *next=nullptr);
+    NodeDL(T data, NodeDL *next = nullptr);
 
     ~NodeDL();
 };
