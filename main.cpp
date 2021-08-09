@@ -18,12 +18,5 @@ int main()
     cout << q.back()<< endl;
     q.flip();
     cout << q.back()<< endl;
-    List<int> l(0, 1, 2, 3, 4);
-    cout << l.pop_back() << endl;
-    cout << l.pop_back()<< endl;
-    cout << l.pop_back()<< endl;
-    cout << l.pop_back()<< endl;
-    cout << l.pop_back()<< endl;
-    cout << l.pop_back()<< endl;
     return 0;
 }

@@ -13,10 +13,8 @@ class List: public AbsLineAdapter<T>
 public:
     List();
     List(const List<T> &copy);
-
     template<typename First, typename... Args>
-    List(First first, Args... args) :
-        AbsLineAdapter<T>()
+    List(First first, Args... args) : List()
     {
         push_back(first);
         uint32_t l = sizeof... (Args);
