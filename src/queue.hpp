@@ -39,6 +39,7 @@ public:
     Queue<T>& operator= (const Queue<T> &q);
 
 private:
+    void push_first_el(T data);
     void copyFromTo(const Queue<T> &q, Queue<T> &res);
 };
 
@@ -67,10 +68,7 @@ Queue<T>::~Queue()
 template<typename T> void Queue<T>::push(T data)
 {
     if(empty())
-    {
-        _front = new NodeDL<T>(data);
-        _back = _front;
-    }
+        push_first_el(data);
     else
     {
         auto node = _back;
@@ -174,6 +172,12 @@ template<typename T> Queue<T>& Queue<T>::operator= (const Queue<T> &q)
         copyFromTo(q, *this);
     }
     return *this;
+}
+
+template<typename T> void Queue<T>::push_first_el(T data)
+{
+    _front = new NodeDL<T>(data);
+    _back = _front;
 }
 
 template<typename T> void Queue<T>::copyFromTo(const Queue<T> &q, Queue<T> &res)

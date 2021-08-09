@@ -1,10 +1,11 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include "absadapter.hpp"
 #include "node/node_dll.hpp"
 
 template<typename T>
-class List
+class List: public AbsLineAdapter<T>
 {
     NodeDLL<T> *_front;
     NodeDLL<T> *_back;
@@ -14,7 +15,8 @@ public:
     List(const List<T> &copy);
 
     template<typename First, typename... Args>
-    List(First first, Args... args) : List()
+    List(First first, Args... args) :
+        AbsLineAdapter<T>()
     {
         push_back(first);
         uint32_t l = sizeof... (Args);
@@ -25,39 +27,38 @@ public:
 
     ~List();
 
-    void push_back(T data);
-    void push_front(T data);
-    T pop_front();
-    T pop_back();
-    T front();
-    T back();
-    void insert(uint32_t pos, T data);
-    bool empty();
-    void clear();
-    void flip();
-    uint32_t size() const;
+    void push_back(T data)  override;
+    void push_front(T data) override;
+    T pop_front() override;
+    T pop_back()  override;
+    T front()     override;
+    T back()      override;
+    void insert(uint32_t pos, T data) override;
+    uint32_t size() const override;
+    void clear() override;
+    void flip()  override;
 
     List<T> operator+(const List<T> &l);
-    List<T> operator+=(const List<T> &lr);
+    List<T> operator+=(const List<T> &l);
     List<T>& operator= (const List<T> &l);
 
-private:
-    void push_first_el(T data);
+protected:
     void copy_from_to(const List<T> &l, List<T> &res);
+    void push_first_el(T data);
 };
 
 template<typename T>
 List<T>::List() :
     _front(nullptr)
   , _back(nullptr)
+  , AbsLineAdapter<T>()
 {
 
 }
 
 template<typename T>
 List<T>::List(const List<T> &copy) :
-    _front(nullptr)
-  , _back(nullptr)
+   List()
 {
     copy_from_to(copy, *this);
 }
@@ -70,7 +71,7 @@ List<T>::~List()
 
 template<typename T> void List<T>::push_back(T data)
 {
-    if(empty())
+    if(AbsLineAdapter<T>::empty())
         push_first_el(data);
     else
     {
@@ -82,7 +83,7 @@ template<typename T> void List<T>::push_back(T data)
 
 template<typename T> void List<T>::push_front(T data)
 {
-    if(empty())
+    if(AbsLineAdapter<T>::empty())
         push_first_el(data);
     else
     {
@@ -145,11 +146,6 @@ template<typename T> void List<T>::insert(uint32_t pos, T data)
     // TODO
 }
 
-template<typename T> bool List<T>::empty()
-{
-    return size() == 0;
-}
-
 template<typename T> void List<T>::clear()
 {
     while(_front)
@@ -170,42 +166,42 @@ template<typename T> uint32_t List<T>::size() const
 
 template<typename T> void List<T>::flip()
 {
-    if(empty())
+    if(AbsLineAdapter<T>::empty())
         return;
     //TODO
-}
-
-template<typename T> List<T> List<T>::operator+(const List<T> &l)
-{
-    List<T> res;
-    copy_from_to(*this, res);
-    copy_from_to(l, res);
-    return res;
-}
-
-template<typename T> List<T> List<T>::operator+=(const List<T> &lr)
-{
-    List<T> res;
-    copy_from_to(lr, res);
-    copy_from_to(res, *this);
-    return *this;
-}
-
-template<typename T> List<T>& List<T>::operator= (const List<T> &l)
-{
-    // Проверка на самоприсваивание
-    if (this != &l)
-    {
-        clear();
-        copy_from_to(l, *this);
-    }
-    return *this;
 }
 
 template<typename T> void List<T>::push_first_el(T data)
 {
     _front = new NodeDLL<T>(data);
     _back = _front;
+}
+
+template<typename T> List<T> List<T>::operator+(const List<T> &obj)
+{
+    List<T> res;
+    copy_from_to(*this, res);
+    copy_from_to(obj, res);
+    return res;
+}
+
+template<typename T> List<T> List<T>::operator+=(const List<T> &obj)
+{
+    List<T> res;
+    copy_from_to(obj, res);
+    copy_from_to(res, *this);
+    return *this;
+}
+
+template<typename T> List<T>& List<T>::operator= (const List<T> &obj)
+{
+    // Проверка на самоприсваивание
+    if (this != &obj)
+    {
+        clear();
+        copy_from_to(obj, *this);
+    }
+    return *this;
 }
 
 template<typename T> void List<T>::copy_from_to(const List<T> &l, List<T> &res)
