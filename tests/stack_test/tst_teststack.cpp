@@ -8,12 +8,11 @@ class TestStack : public QObject
 {
     Q_OBJECT
     Stack<float> d_stack;
-    QVector<float> d_case;
-
     Stack<int> i_stack;
-    QVector<int> i_case;
-
     Stack<char> c_stack;
+
+    QVector<float> d_case;
+    QVector<int> i_case;
     QVector<char> c_case;
 
 public:
@@ -56,10 +55,8 @@ void TestStack::testCasePushItem()
 {
     foreach(float d, d_case)
         d_stack.push(d);
-
     foreach(int i, i_case)
         i_stack.push(i);
-
     foreach(char c, c_case)
         c_stack.push(c);
 }
@@ -68,10 +65,8 @@ void TestStack::testCaseFrontBackItem()
 {
     QCOMPARE(d_stack.front(), d_case.last());
     QCOMPARE(d_stack.back(), d_case.first());
-
     QCOMPARE(i_stack.front(), i_case.last());
     QCOMPARE(i_stack.back(), i_case.first());
-
     QCOMPARE(c_stack.front(), c_case.last());
     QCOMPARE(c_stack.back(), c_case.first());
 }
@@ -88,10 +83,8 @@ void TestStack::testCasePopItem()
 {
     for(int i = d_case.size() - 1; i >= 0; i--)
         QCOMPARE(d_stack.pop(), d_case[i]);
-
     for(int i = i_case.size() - 1; i >= 0; i--)
         QCOMPARE(i_stack.pop(), i_case[i]);
-
     for(int i = c_case.size() - 1; i >= 0; i--)
         QCOMPARE(c_stack.pop(), c_case[i]);
 }

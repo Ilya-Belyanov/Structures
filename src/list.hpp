@@ -1,6 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <cassert>
+
 #include "absadapter.hpp"
 #include "node/node_dll.hpp"
 
@@ -40,9 +42,12 @@ public:
     List<T> operator+=(const List<T> &l);
     List<T>& operator= (const List<T> &l);
 
+    T& operator[] (const uint32_t index);
+
 protected:
     void copy_from_to(const List<T> &l, List<T> &res);
     void push_first_el(T data);
+    NodeDLL<T> *node(const uint32_t pos);
 };
 
 template<typename T>
@@ -141,7 +146,15 @@ template<typename T> T List<T>::back()
 
 template<typename T> void List<T>::insert(uint32_t pos, T data)
 {
-    // TODO
+    if(pos >= size())
+        return;
+    auto node_after = node(pos);
+    NodeDLL<T> *node = new NodeDLL<T>(data, node_after->_prev, node_after);
+    if(node_after->_prev)
+        node_after->_prev->_next = node;
+    node_after->_prev = node;
+    if(pos == 0)
+        _front = node;
 }
 
 template<typename T> void List<T>::clear()
@@ -183,6 +196,18 @@ template<typename T> void List<T>::push_first_el(T data)
     _back = _front;
 }
 
+template<typename T> NodeDLL<T>* List<T>::node(const uint32_t pos)
+{
+    auto node = _front;
+    uint32_t current_id = 0;
+    while (current_id != pos)
+    {
+        node = node->_next;
+        current_id++;
+    }
+    return node;
+}
+
 template<typename T> List<T> List<T>::operator+(const List<T> &obj)
 {
     List<T> res;
@@ -208,6 +233,12 @@ template<typename T> List<T>& List<T>::operator= (const List<T> &obj)
         copy_from_to(obj, *this);
     }
     return *this;
+}
+
+template<typename T> T& List<T>::operator[] (const uint32_t index)
+{
+    assert(index < size());
+    return *(node(index)->_data);
 }
 
 template<typename T> void List<T>::copy_from_to(const List<T> &l, List<T> &res)

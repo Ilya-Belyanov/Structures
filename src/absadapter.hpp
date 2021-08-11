@@ -21,6 +21,8 @@ public:
     virtual void clear()          = 0;
     virtual void flip()           = 0;
     bool empty();
+
+    virtual T& operator[] (const uint32_t index) = 0;
 };
 
 template<typename T>

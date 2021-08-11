@@ -19,7 +19,7 @@ template<typename T> Node<T>::~Node()
     delete _data;
 }
 
-template<typename T> const T& Node<T>::data() const
+template<typename T> const T &Node<T>::data() const
 {
     return *_data;
 }

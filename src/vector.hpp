@@ -1,6 +1,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#include <cassert>
+
 #include "absadapter.hpp"
 #include "node/node_dll.hpp"
 
@@ -44,9 +46,12 @@ public:
     Vector<T> operator+=(const Vector<T> &l);
     Vector<T>& operator= (const Vector<T> &l);
 
+    T& operator[] (const uint32_t index);
+
 protected:
     void copy_from_to(const Vector<T> &l, Vector<T> &res);
     void up_memory();
+    void to_right(uint32_t start_pos = 0);
     int last_index();
 };
 
@@ -85,10 +90,7 @@ template<typename T> void Vector<T>::push_back(T data)
 
 template<typename T> void Vector<T>::push_front(T data)
 {
-    if(_size >= _capacity)
-        up_memory();
-    for(int i = _size; i >= 1; i--)
-        _array[i] = _array[i - 1];
+    to_right();
     _array[0] = data;
     _size++;
 }
@@ -131,7 +133,9 @@ template<typename T> void Vector<T>::insert(uint32_t pos, T data)
 {
     if(pos >= _size)
         return;
+    to_right(pos);
     _array[pos] = data;
+    _size++;
 }
 
 template<typename T> void Vector<T>::clear()
@@ -185,6 +189,12 @@ template<typename T> Vector<T>& Vector<T>::operator= (const Vector<T> &obj)
     return *this;
 }
 
+template<typename T> T& Vector<T>::operator[] (const uint32_t index)
+{
+    assert(index < _size);
+    return _array[index];
+}
+
 template<typename T> void Vector<T>::copy_from_to(const Vector<T> &l, Vector<T> &res)
 {
     for(uint32_t i = 0; i < l._size; i++)
@@ -199,6 +209,14 @@ template<typename T> void Vector<T>::up_memory()
         time_array[i] = _array[i];
     delete [] _array;
     _array = time_array;
+}
+
+template<typename T> void Vector<T>::to_right(uint32_t start_pos)
+{
+    if(_size >= _capacity)
+        up_memory();
+    for(int i = last_index(); i >= int(start_pos); i--)
+        _array[i + 1] = _array[i];
 }
 
 template<typename T> int Vector<T>::last_index()
