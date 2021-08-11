@@ -8,11 +8,11 @@ using namespace stt;
 class TestStack : public QObject
 {
     Q_OBJECT
-    Stack<float> d_stack;
+    Stack<double> d_stack;
     Stack<int> i_stack;
     Stack<char> c_stack;
 
-    QVector<float> d_case;
+    QVector<double> d_case;
     QVector<int> i_case;
     QVector<char> c_case;
 
@@ -47,18 +47,18 @@ void TestStack::initTestCase()
 
 void TestStack::testCaseConstructors()
 {
-    Stack<float> d2_stack(9.0, 10.0, 13.0, 14.4, 15.6);
-    foreach(float d, d_case)
+    Stack<double> d2_stack(9.0, 10.0, 13.0, 14.4, 15.6);
+    foreach(auto d, d_case)
         QCOMPARE(d2_stack.pop(), d);
 }
 
 void TestStack::testCasePushItem()
 {
-    foreach(float d, d_case)
+    foreach(auto d, d_case)
         d_stack.push(d);
-    foreach(int i, i_case)
+    foreach(auto i, i_case)
         i_stack.push(i);
-    foreach(char c, c_case)
+    foreach(auto c, c_case)
         c_stack.push(c);
 }
 
@@ -74,9 +74,9 @@ void TestStack::testCaseFrontBackItem()
 
 void TestStack::testCaseFlip()
 {
-    Stack<float> d2_stack = d_stack;
+    Stack<double> d2_stack = d_stack;
     d2_stack.flip();
-    foreach(float d, d_case)
+    foreach(auto d, d_case)
         QCOMPARE(d2_stack.pop(), d);
 }
 

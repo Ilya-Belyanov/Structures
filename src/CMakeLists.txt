@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(str)
+project(stt)
 
 set(NODE_DIR "${PROJECT_SOURCE_DIR}/node")
 
