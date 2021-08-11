@@ -3,6 +3,7 @@
 
 #include "../../src/list.hpp"
 
+using namespace stt;
 
 class TestList : public QObject
 {

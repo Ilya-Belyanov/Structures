@@ -3,6 +3,10 @@
 
 #include "queue.hpp"
 
+namespace stt
+{
+
+
 template<typename T, template <typename> class A = List>
 class Stack : public Queue<T, A>
 {
@@ -66,4 +70,5 @@ Stack<T, A>& Stack<T, A>::operator= (const Stack<T, A> &q)
     return *this;
 }
 
+}
 #endif // STACK_HPP

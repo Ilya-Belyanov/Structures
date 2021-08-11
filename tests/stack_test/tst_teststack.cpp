@@ -3,6 +3,7 @@
 
 #include "../../src/stack.hpp"
 
+using namespace stt;
 
 class TestStack : public QObject
 {

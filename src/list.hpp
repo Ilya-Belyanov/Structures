@@ -6,6 +6,9 @@
 #include "absadapter.hpp"
 #include "node/node_dll.hpp"
 
+namespace stt
+{
+
 template<typename T>
 class List: public AbsLineAdapter<T>
 {
@@ -249,5 +252,7 @@ template<typename T> void List<T>::copy_from_to(const List<T> &l, List<T> &res)
         res.push_back(node->data());
         node = node->_next;
     }
+}
+
 }
 #endif // LIST_H

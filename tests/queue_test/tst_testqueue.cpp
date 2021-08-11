@@ -3,6 +3,8 @@
 
 #include "../../src/queue.hpp"
 
+using namespace stt;
+
 class TestQueue : public QObject
 {
     Q_OBJECT

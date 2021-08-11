@@ -3,6 +3,7 @@
 
 #include "../../src/vector.hpp"
 
+using namespace stt;
 
 class TestVector : public QObject
 {

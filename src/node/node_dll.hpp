@@ -3,6 +3,9 @@
 
 #include "node.hpp"
 
+namespace stt
+{
+
 template<typename T>
 struct NodeDLL : public Node<T> {
     NodeDLL<T> *_prev;
@@ -37,4 +40,5 @@ void NodeDLL<T>::swap_direction()
     _next = node;
 }
 
+}
 #endif // NODE_DLL_HPP

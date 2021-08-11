@@ -6,6 +6,10 @@
 #include "absadapter.hpp"
 #include "node/node_dll.hpp"
 
+namespace stt
+{
+
+
 template<typename T>
 class Vector: public AbsLineAdapter<T>
 {
@@ -224,4 +228,5 @@ template<typename T> int Vector<T>::last_index()
     return int(_size) - 1;
 }
 
+}
 #endif // VECTOR_HPP

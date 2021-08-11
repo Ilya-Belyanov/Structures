@@ -4,6 +4,10 @@
 #include "list.hpp"
 #include "vector.hpp"
 
+namespace stt
+{
+
+
 template<typename T, template <typename> class A = List>
 class Queue
 {
@@ -125,4 +129,5 @@ Queue<T, A>& Queue<T, A>::operator= (const Queue<T, A> &q)
     return *this;
 }
 
+}
 #endif // QUEUE_H

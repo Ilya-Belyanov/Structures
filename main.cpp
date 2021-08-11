@@ -3,7 +3,7 @@
 #include "queue.hpp"
 #include "vector.hpp"
 
-using namespace std;
+using namespace stt;
 
 int main()
 {

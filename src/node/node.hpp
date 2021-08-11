@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+namespace stt
+{
+
 template<typename T>
 struct Node {
     T *_data;
@@ -22,5 +25,7 @@ template<typename T> Node<T>::~Node()
 template<typename T> const T &Node<T>::data() const
 {
     return *_data;
+}
+
 }
 #endif // NODE_H

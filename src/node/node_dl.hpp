@@ -3,6 +3,9 @@
 
 #include "node.hpp"
 
+namespace stt
+{
+
 template<typename T>
 struct NodeDL: public Node<T>
 {
@@ -24,4 +27,5 @@ template<typename T> NodeDL<T>::~NodeDL()
     _next = nullptr;
 }
 
+}
 #endif // NODE_DL_HPP
