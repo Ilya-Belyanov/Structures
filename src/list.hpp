@@ -166,7 +166,15 @@ template<typename T> void List<T>::flip()
 {
     if(AbsLineAdapter<T>::empty())
         return;
-    //TODO
+    auto node = _front;
+    while (node)
+    {
+        node->swap_direction();
+        node = node->_prev;
+    }
+    node = _back;
+    _back = _front;
+    _front = node;
 }
 
 template<typename T> void List<T>::push_first_el(T data)

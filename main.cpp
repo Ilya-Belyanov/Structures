@@ -1,22 +1,17 @@
 #include <iostream>
 
-#include "node.hpp"
-#include "node_dl.hpp"
 #include "queue.hpp"
-#include "list.hpp"
+#include "vector.hpp"
 
 using namespace std;
 
 int main()
 {
-    Queue<int> q(0);
-    q += q;
-    q.push(0);
-    q.push(1);
-    q.push(2);
-    q.push(3);
-    cout << q.back()<< endl;
-    q.flip();
-    cout << q.back()<< endl;
+    Vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.flip();
+    cout << v.front() << endl;
+    cout << v.back() << endl;
     return 0;
 }

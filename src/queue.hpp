@@ -2,10 +2,13 @@
 #define QUEUE_H
 
 #include "list.hpp"
+#include "vector.hpp"
 
 template<typename T, template <typename> class A = List>
 class Queue
 {
+
+protected:
     A<T> adapter;
 
 public:
@@ -15,12 +18,11 @@ public:
     template<typename First, typename... Args>
     Queue(First first, Args... args) :
       adapter(first, args...)
-    {
-    }
+    {}
 
     ~Queue();
 
-    void push(T data);
+    virtual void push(T data);
     T pop();
     T front();
     T back();
@@ -98,22 +100,6 @@ uint32_t Queue<T, A>::size() const
 template<typename T, template <typename> class A>
 void Queue<T, A>::flip()
 {
-    /*
-    if(empty())
-        return;
-    auto node = _front;
-    auto node_next = _front->_next;
-    node->_next = nullptr;
-    while(node_next)
-    {
-        auto tmp = node_next->_next;
-        node_next->_next = node;
-        node = node_next;
-        node_next = tmp;
-    }
-    _back = _front;
-    _front = node;
-    */
     adapter.flip();
 }
 

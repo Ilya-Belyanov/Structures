@@ -12,7 +12,7 @@ struct NodeDLL : public Node<T> {
 
     ~NodeDLL();
 
-    //void swap_direction();
+    void swap_direction();
 };
 
 template<typename T>
@@ -27,6 +27,14 @@ template<typename T>
 NodeDLL<T>::~NodeDLL() {
     _prev = nullptr;
     _next = nullptr;
+}
+
+template<typename T>
+void NodeDLL<T>::swap_direction()
+{
+    auto node = _prev;
+    _prev = _next;
+    _next = node;
 }
 
 #endif // NODE_DLL_HPP
